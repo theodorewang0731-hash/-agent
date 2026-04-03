@@ -1,0 +1,25 @@
+{
+  "default_source": "remote_api",
+  "agents": {
+    "cabinet.coordinator": {
+      "source": "local_full",
+      "model": "deepseek-r1:70b",
+      "provider": "ollama"
+    },
+    "silijian.approver": {
+      "source": "remote_api",
+      "model": "gpt-5.4-mini",
+      "provider": "openai"
+    },
+    "censorship.inspector": {
+      "source": "local_distilled",
+      "model": "qwen2.5:7b-instruct-q4_k_m",
+      "provider": "ollama"
+    },
+    "jinyiwei.advisor": {
+      "source": "local_full",
+      "model": "deepseek-r1:70b",
+      "provider": "ollama"
+    }
+  }
+}

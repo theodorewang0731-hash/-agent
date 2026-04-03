@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    image: python:3.11-slim
+    working_dir: /app
+    command: sh -c "pip install -r requirements.txt && uvicorn apps.api.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+  worker:
+    image: python:3.11-slim
+    working_dir: /app
+    command: sh -c "pip install -r requirements.txt && python apps/worker/main.py"
+    volumes:
+      - .:/app
+
+  dashboard:
+    image: node:22
+    working_dir: /app
+    command: sh -c "cd apps/dashboard && npm install && VITE_API_BASE=http://api:8000 npm run dev -- --host 0.0.0.0 --port 7891"
+    ports:
+      - "7891:7891"
+    volumes:
+      - .:/app

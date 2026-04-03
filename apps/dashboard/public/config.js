@@ -1,0 +1,1 @@
+window.REGENTOS_CONFIG = window.REGENTOS_CONFIG || {};

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RegentOS · 文渊阁中枢</title>
+    <style>
+      :root {
+        --bg: #efe3cf;
+        --paper: #fbf4e7;
+        --ink: #1f1a17;
+        --muted: #6d6257;
+        --line: #d7c6af;
+        --accent: #8b2f1f;
+        --gold: #a0742d;
+        --emerald: #275c45;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "STSong", "Songti SC", "Noto Serif SC", serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top right, rgba(160,116,45,0.14), transparent 32%),
+          linear-gradient(180deg, #f7ebd7 0%, var(--bg) 100%);
+      }
+      header {
+        padding: 28px 32px 16px;
+        border-bottom: 1px solid rgba(139,47,31,0.12);
+      }
+      h1 {
+        margin: 0;
+        font-size: 34px;
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        margin-top: 8px;
+        color: var(--muted);
+        max-width: 780px;
+        line-height: 1.6;
+      }
+      .container {
+        padding: 24px 32px 40px;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .card {
+        background: rgba(251,244,231,0.88);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 10px 24px rgba(76, 50, 24, 0.08);
+      }
+      .label {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .value {
+        font-size: 30px;
+        font-weight: 600;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr;
+        gap: 18px;
+      }
+      .kanban {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 14px;
+      }
+      .column {
+        background: rgba(255,255,255,0.45);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px;
+      }
+      .column h3 {
+        margin: 0 0 12px;
+        font-size: 16px;
+        color: var(--accent);
+      }
+      .case {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .case:hover { border-color: var(--gold); }
+      .case small {
+        display: block;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .pill {
+        display: inline-block;
+        border-radius: 999px;
+        font-size: 12px;
+        padding: 2px 8px;
+        margin-top: 6px;
+        background: rgba(39,92,69,0.12);
+        color: var(--emerald);
+      }
+      .detail h2 {
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+      .timeline {
+        margin-top: 14px;
+        display: grid;
+        gap: 10px;
+      }
+      .event {
+        border-left: 3px solid var(--gold);
+        padding-left: 10px;
+      }
+      .event .topic {
+        font-weight: 600;
+      }
+      .muted { color: var(--muted); }
+      .footer-note {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 1100px) {
+        .layout { grid-template-columns: 1fr; }
+        .kanban { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      }
+      @media (max-width: 680px) {
+        header, .container { padding-left: 18px; padding-right: 18px; }
+        .kanban { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>文渊阁中枢</h1>
+      <div class="subtitle">
+        RegentOS 的最小 Dashboard 原型。它不假装已经有完整控制台，而是先把案件流转、治理 Agent 编制、
+        时间线卷宗和模型接入边界清楚地展示出来。
+      </div>
+    </header>
+    <div class="container">
+      <section class="stats" id="stats"></section>
+      <section class="layout">
+        <div class="card">
+          <div class="label">案件看板</div>
+          <div class="kanban" id="kanban"></div>
+        </div>
+        <div class="card detail">
+          <div class="label">卷宗详情</div>
+          <div id="detail">请选择一个案件查看时间线。</div>
+        </div>
+      </section>
+      <div class="footer-note" id="footer-note"></div>
+    </div>
+    <script src="/config.js"></script>
+    <script>
+      const apiBase = (window.REGENTOS_CONFIG && window.REGENTOS_CONFIG.apiBase) || "http://127.0.0.1:8000";
+      const groups = [
+        { title: "建档", states: ["created", "accepted"] },
+        { title: "票拟", states: ["planning", "internal_review"] },
+        { title: "审批", states: ["submitted_for_approval", "approved", "rejected", "escalated"] },
+        { title: "执行", states: ["dispatched", "executing", "reporting", "rerunning"] },
+        { title: "修复/归档", states: ["repair_pending", "repair_authorized", "paused", "frozen", "failed", "archived", "cancelled"] }
+      ];
+
+      async function getJson(path) {
+        const res = await fetch(`${apiBase}${path}`);
+        if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+        return res.json();
+      }
+
+      function renderStats(summary, agents, models) {
+        const cards = [
+          ["案件总数", summary.counts.cases_total],
+          ["治理 Agent", summary.counts.agents_total],
+          ["已有骨架", summary.counts.agents_implemented],
+          ["模型来源", models.sources.length]
+        ];
+        document.getElementById("stats").innerHTML = cards.map(([label, value]) => `
+          <div class="card">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
+          </div>
+        `).join("");
+
+        document.getElementById("footer-note").textContent =
+          `支持模型来源：${models.sources.map(item => item.name).join(" / ")}。系统设计本身不限制本地模型大小。`;
+      }
+
+      function renderKanban(cases) {
+        const container = document.getElementById("kanban");
+        container.innerHTML = groups.map(group => {
+          const items = cases.filter(item => group.states.includes(item.state));
+          return `
+            <div class="column">
+              <h3>${group.title}</h3>
+              ${items.length ? items.map(item => `
+                <div class="case" data-case-id="${item.case_id}">
+                  <strong>${item.title}</strong>
+                  <small>${item.case_id}</small>
+                  <small>状态：${item.state}</small>
+                  <span class="pill">${item.priority}</span>
+                </div>
+              `).join("") : `<div class="muted">暂无案件</div>`}
+            </div>
+          `;
+        }).join("");
+
+        container.querySelectorAll(".case").forEach(node => {
+          node.addEventListener("click", () => renderCaseDetail(node.dataset.caseId));
+        });
+      }
+
+      async function renderCaseDetail(caseId) {
+        const [detail, timeline] = await Promise.all([
+          getJson(`/api/cases/${caseId}`),
+          getJson(`/api/cases/${caseId}/timeline`)
+        ]);
+
+        const html = `
+          <h2>${detail.title}</h2>
+          <div class="muted">case_id: ${detail.case_id}</div>
+          <div class="muted">当前状态: ${detail.state} · 优先级: ${detail.priority}</div>
+          <p>${detail.content}</p>
+          <div class="timeline">
+            ${timeline.timeline.map(event => `
+              <div class="event">
+                <div class="topic">${event.topic}</div>
+                <div class="muted">${event.producer} · ${event.timestamp}</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+        document.getElementById("detail").innerHTML = html;
+      }
+
+      async function boot() {
+        const [summary, agents, models, cases] = await Promise.all([
+          getJson("/api/dashboard/summary"),
+          getJson("/api/agents"),
+          getJson("/api/models/runtime-capabilities"),
+          getJson("/api/cases")
+        ]);
+        renderStats(summary, agents.items, models);
+        renderKanban(cases.items);
+        if (cases.items.length) {
+          renderCaseDetail(cases.items[0].case_id);
+        }
+      }
+
+      boot().catch(error => {
+        document.getElementById("detail").innerHTML = `<div class="muted">加载失败：${error.message}</div>`;
+      });
+    </script>
+  </body>
+  </html>

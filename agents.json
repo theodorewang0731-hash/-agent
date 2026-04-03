@@ -1,0 +1,384 @@
+[
+  {
+    "id": "cabinet.coordinator",
+    "name": "首辅协调 Agent",
+    "department": "cabinet",
+    "style": "coordinator",
+    "workspace": "runtime/workspaces/cabinet-coordinator",
+    "soulPath": "agents/cabinet/coordinator/SOUL.md",
+    "implemented": true,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.drafter",
+        "cabinet.reviewer",
+        "silijian.approver",
+        "cabinet.dispatcher",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "cabinet.dispatcher",
+    "name": "执行调度 Agent",
+    "department": "cabinet",
+    "style": "dispatcher",
+    "workspace": "runtime/workspaces/cabinet-dispatcher",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "dynamic_pool",
+        "cabinet.reporter"
+      ]
+    }
+  },
+  {
+    "id": "cabinet.drafter",
+    "name": "票拟草拟 Agent",
+    "department": "cabinet",
+    "style": "drafter",
+    "workspace": "runtime/workspaces/cabinet-drafter",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.coordinator",
+        "cabinet.reviewer"
+      ]
+    }
+  },
+  {
+    "id": "cabinet.reporter",
+    "name": "回奏反馈 Agent",
+    "department": "cabinet",
+    "style": "reporter",
+    "workspace": "runtime/workspaces/cabinet-reporter",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.coordinator",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "cabinet.reviewer",
+    "name": "校核复审 Agent",
+    "department": "cabinet",
+    "style": "reviewer",
+    "workspace": "runtime/workspaces/cabinet-reviewer",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.coordinator",
+        "cabinet.drafter"
+      ]
+    }
+  },
+  {
+    "id": "censorship.engineering",
+    "name": "工科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-engineering",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.finance",
+    "name": "户科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-finance",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.inspector",
+    "name": "都察总巡 Agent",
+    "department": "censorship",
+    "style": "chief_oversight",
+    "workspace": "runtime/workspaces/censorship-inspector",
+    "soulPath": "agents/censorship/inspector/SOUL.md",
+    "implemented": true,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "jinyiwei.locator",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.justice",
+    "name": "刑科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-justice",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.military",
+    "name": "兵科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-military",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.personnel",
+    "name": "吏科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-personnel",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "censorship.protocol",
+    "name": "礼科监察 Agent",
+    "department": "censorship",
+    "style": "oversight",
+    "workspace": "runtime/workspaces/censorship-protocol",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "censorship.inspector",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "jinyiwei.advisor",
+    "name": "修复建议 Agent",
+    "department": "jinyiwei",
+    "style": "repair_advisor",
+    "workspace": "runtime/workspaces/jinyiwei-advisor",
+    "soulPath": "agents/jinyiwei/advisor/SOUL.md",
+    "implemented": true,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "jinyiwei.analyzer",
+    "name": "影响分析 Agent",
+    "department": "jinyiwei",
+    "style": "impact_analyzer",
+    "workspace": "runtime/workspaces/jinyiwei-analyzer",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "jinyiwei.advisor",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "jinyiwei.locator",
+    "name": "问题定位 Agent",
+    "department": "jinyiwei",
+    "style": "diagnostician",
+    "workspace": "runtime/workspaces/jinyiwei-locator",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "jinyiwei.analyzer",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "silijian.approver",
+    "name": "掌印审批 Agent",
+    "department": "silijian",
+    "style": "approver",
+    "workspace": "runtime/workspaces/silijian-approver",
+    "soulPath": "agents/silijian/approver/SOUL.md",
+    "implemented": true,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "silijian.decree_writer",
+        "silijian.rejector",
+        "cabinet.coordinator",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "silijian.decree_writer",
+    "name": "秉笔批令 Agent",
+    "department": "silijian",
+    "style": "decree_writer",
+    "workspace": "runtime/workspaces/silijian-decree_writer",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.dispatcher",
+        "imperial_user"
+      ]
+    }
+  },
+  {
+    "id": "silijian.rejector",
+    "name": "封驳记录 Agent",
+    "department": "silijian",
+    "style": "rejector",
+    "workspace": "runtime/workspaces/silijian-rejector",
+    "soulPath": null,
+    "implemented": false,
+    "supportedModelSources": [
+      "remote_api",
+      "local_distilled",
+      "local_full"
+    ],
+    "localModelSizeLimit": "none_by_system",
+    "subagents": {
+      "allowAgents": [
+        "cabinet.coordinator",
+        "imperial_user"
+      ]
+    }
+  }
+]

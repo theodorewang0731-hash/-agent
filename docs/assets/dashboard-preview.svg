@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+  <rect width="1400" height="860" fill="#efe3cf"/>
+  <rect x="40" y="36" width="1320" height="92" rx="24" fill="#fbf4e7" stroke="#d7c6af"/>
+  <text x="78" y="88" font-family="Songti SC, Noto Serif SC, serif" font-size="34" fill="#1f1a17">文渊阁中枢</text>
+  <text x="78" y="116" font-family="Songti SC, Noto Serif SC, serif" font-size="18" fill="#6d6257">RegentOS Dashboard Prototype · 案件看板 / 卷宗详情 / 模型运行时能力</text>
+
+  <g font-family="Songti SC, Noto Serif SC, serif">
+    <rect x="40" y="150" width="250" height="120" rx="20" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="64" y="192" font-size="18" fill="#6d6257">案件总数</text>
+    <text x="64" y="242" font-size="42" fill="#1f1a17">3</text>
+
+    <rect x="310" y="150" width="250" height="120" rx="20" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="334" y="192" font-size="18" fill="#6d6257">治理 Agent</text>
+    <text x="334" y="242" font-size="42" fill="#1f1a17">18</text>
+
+    <rect x="580" y="150" width="250" height="120" rx="20" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="604" y="192" font-size="18" fill="#6d6257">已有骨架</text>
+    <text x="604" y="242" font-size="42" fill="#1f1a17">4</text>
+
+    <rect x="850" y="150" width="250" height="120" rx="20" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="874" y="192" font-size="18" fill="#6d6257">模型来源</text>
+    <text x="874" y="242" font-size="42" fill="#1f1a17">3</text>
+  </g>
+
+  <rect x="40" y="300" width="850" height="510" rx="24" fill="#fbf4e7" stroke="#d7c6af"/>
+  <text x="68" y="340" font-family="Songti SC, Noto Serif SC, serif" font-size="26" fill="#8b2f1f">案件看板</text>
+
+  <g font-family="Songti SC, Noto Serif SC, serif" font-size="18">
+    <rect x="68" y="362" width="148" height="418" rx="16" fill="#fff9f0" stroke="#d7c6af"/>
+    <text x="90" y="396" fill="#8b2f1f">建档</text>
+    <rect x="82" y="418" width="120" height="96" rx="14" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="94" y="450" fill="#1f1a17">企业知识库系统设计</text>
+    <text x="94" y="478" fill="#6d6257" font-size="14">accepted</text>
+
+    <rect x="232" y="362" width="148" height="418" rx="16" fill="#fff9f0" stroke="#d7c6af"/>
+    <text x="254" y="396" fill="#8b2f1f">票拟</text>
+    <rect x="246" y="418" width="120" height="96" rx="14" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="258" y="450" fill="#1f1a17">代码重构任务</text>
+    <text x="258" y="478" fill="#6d6257" font-size="14">planning</text>
+
+    <rect x="396" y="362" width="148" height="418" rx="16" fill="#fff9f0" stroke="#d7c6af"/>
+    <text x="418" y="396" fill="#8b2f1f">审批</text>
+    <rect x="410" y="418" width="120" height="96" rx="14" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="422" y="450" fill="#1f1a17">依赖污染修复</text>
+    <text x="422" y="478" fill="#6d6257" font-size="14">submitted_for_approval</text>
+
+    <rect x="560" y="362" width="148" height="418" rx="16" fill="#fff9f0" stroke="#d7c6af"/>
+    <text x="582" y="396" fill="#8b2f1f">执行</text>
+    <rect x="574" y="418" width="120" height="96" rx="14" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="586" y="450" fill="#1f1a17">执行调度中</text>
+    <text x="586" y="478" fill="#6d6257" font-size="14">executing</text>
+
+    <rect x="724" y="362" width="138" height="418" rx="16" fill="#fff9f0" stroke="#d7c6af"/>
+    <text x="742" y="396" fill="#8b2f1f">修复/归档</text>
+    <rect x="736" y="418" width="112" height="96" rx="14" fill="#fbf4e7" stroke="#d7c6af"/>
+    <text x="748" y="450" fill="#1f1a17">修复待令</text>
+    <text x="748" y="478" fill="#6d6257" font-size="14">repair_pending</text>
+  </g>
+
+  <rect x="920" y="300" width="440" height="510" rx="24" fill="#fbf4e7" stroke="#d7c6af"/>
+  <text x="948" y="340" font-family="Songti SC, Noto Serif SC, serif" font-size="26" fill="#8b2f1f">卷宗详情</text>
+  <text x="950" y="392" font-family="Songti SC, Noto Serif SC, serif" font-size="28" fill="#1f1a17">企业知识库系统设计</text>
+  <text x="950" y="424" font-family="Songti SC, Noto Serif SC, serif" font-size="16" fill="#6d6257">case_id: 4b6d...e91</text>
+  <text x="950" y="452" font-family="Songti SC, Noto Serif SC, serif" font-size="16" fill="#6d6257">当前状态: executing · 优先级: high</text>
+
+  <g font-family="Songti SC, Noto Serif SC, serif">
+    <line x1="960" y1="500" x2="960" y2="734" stroke="#a0742d" stroke-width="4"/>
+    <circle cx="960" cy="520" r="7" fill="#a0742d"/>
+    <text x="980" y="524" font-size="18" fill="#1f1a17">case.created</text>
+    <text x="980" y="546" font-size="14" fill="#6d6257">gateway</text>
+
+    <circle cx="960" cy="584" r="7" fill="#a0742d"/>
+    <text x="980" y="588" font-size="18" fill="#1f1a17">case.state.accepted</text>
+    <text x="980" y="610" font-size="14" fill="#6d6257">gateway</text>
+
+    <circle cx="960" cy="648" r="7" fill="#a0742d"/>
+    <text x="980" y="652" font-size="18" fill="#1f1a17">case.planning.started</text>
+    <text x="980" y="674" font-size="14" fill="#6d6257">cabinet.coordinator</text>
+
+    <circle cx="960" cy="712" r="7" fill="#a0742d"/>
+    <text x="980" y="716" font-size="18" fill="#1f1a17">repair.authorized</text>
+    <text x="980" y="738" font-size="14" fill="#6d6257">imperial_user</text>
+  </g>
+</svg>

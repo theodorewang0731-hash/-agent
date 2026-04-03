@@ -1,0 +1,17 @@
+.venv/
+.DS_Store
+__pycache__/
+.pytest_cache/
+*.pyc
+runtime/
+data/audit/*.json
+data/live_status.json
+data/agent_catalog_snapshot.json
+data/cases_snapshot.json
+data/model_runtime_snapshot.json
+apps/dashboard/node_modules/
+apps/dashboard/dist/
+apps/dashboard/*.tsbuildinfo
+apps/dashboard/vite.config.js
+apps/dashboard/vite.config.d.ts
+下载.png

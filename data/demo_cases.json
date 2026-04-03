@@ -1,0 +1,425 @@
+{
+  "cases": [
+    {
+      "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+      "title": "依赖污染修复",
+      "content": "检测并修复 executor_pool 中的依赖污染",
+      "priority": "critical",
+      "submitted_by": "imperial_user",
+      "state": "repair_authorized",
+      "rework_count": 0,
+      "metadata": {},
+      "created_at": "2026-04-03T03:42:10.675971+00:00",
+      "updated_at": "2026-04-03T03:42:10.676086+00:00"
+    },
+    {
+      "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+      "title": "代码重构任务",
+      "content": "重构 API 模块并补充测试",
+      "priority": "normal",
+      "submitted_by": "imperial_user",
+      "state": "rejected",
+      "rework_count": 0,
+      "metadata": {},
+      "created_at": "2026-04-03T03:42:10.675882+00:00",
+      "updated_at": "2026-04-03T03:42:10.675950+00:00"
+    },
+    {
+      "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+      "title": "企业知识库系统设计",
+      "content": "FastAPI + PostgreSQL + 全文搜索 + 权限分级",
+      "priority": "high",
+      "submitted_by": "imperial_user",
+      "state": "executing",
+      "rework_count": 0,
+      "metadata": {},
+      "created_at": "2026-04-03T03:42:10.675578+00:00",
+      "updated_at": "2026-04-03T03:42:10.675868+00:00"
+    }
+  ],
+  "events_by_case": {
+    "b6cd8d91-8e49-470d-8ad1-716861c9900d": [
+      {
+        "event_id": "35bd63e3-efa8-41a2-9732-a07cf2a4a4a2",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.created",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675745+00:00",
+        "payload": {
+          "title": "企业知识库系统设计",
+          "priority": "high"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "97919b63-58fa-404a-ac97-84e68abb4600",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.accepted",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675785+00:00",
+        "payload": {
+          "from": "created",
+          "to": "accepted",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "f6b63db7-0a9b-40da-b82c-ce6dc6ef8eec",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.planning",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675804+00:00",
+        "payload": {
+          "from": "accepted",
+          "to": "planning",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "21c6b4ca-6b06-43dc-a7d5-0abdc5a248bb",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.planning.started",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675816+00:00",
+        "payload": {
+          "message": "Case entered planning stage"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "00be7c51-eacc-4594-ba23-d4597b635107",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.internal_review",
+        "producer": "cabinet.reviewer",
+        "timestamp": "2026-04-03T03:42:10.675826+00:00",
+        "payload": {
+          "from": "planning",
+          "to": "internal_review",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "ebdedd8d-d17a-4509-b6fd-81258c8a8db4",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.submitted_for_approval",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675839+00:00",
+        "payload": {
+          "from": "internal_review",
+          "to": "submitted_for_approval",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "e057da4f-5538-4398-a632-723d46b9ac2b",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.approved",
+        "producer": "silijian.approver",
+        "timestamp": "2026-04-03T03:42:10.675851+00:00",
+        "payload": {
+          "from": "submitted_for_approval",
+          "to": "approved",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "82c9bdef-70c6-4a57-98af-a779acc0b753",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.dispatched",
+        "producer": "cabinet.dispatcher",
+        "timestamp": "2026-04-03T03:42:10.675862+00:00",
+        "payload": {
+          "from": "approved",
+          "to": "dispatched",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "a693e5dd-fec3-4034-be1a-14f355c6cd74",
+        "case_id": "b6cd8d91-8e49-470d-8ad1-716861c9900d",
+        "topic": "case.state.executing",
+        "producer": "dynamic_pool",
+        "timestamp": "2026-04-03T03:42:10.675873+00:00",
+        "payload": {
+          "from": "dispatched",
+          "to": "executing",
+          "rework_count": 0
+        },
+        "meta": {}
+      }
+    ],
+    "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f": [
+      {
+        "event_id": "b14032cf-a494-4b97-85e8-922a21536690",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.created",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675888+00:00",
+        "payload": {
+          "title": "代码重构任务",
+          "priority": "normal"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "5ad63a49-160e-4e0d-af4d-fa4cfd5b033c",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.state.accepted",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675903+00:00",
+        "payload": {
+          "from": "created",
+          "to": "accepted",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "d4e65e46-8443-4885-95d1-391cb69e661e",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.state.planning",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675915+00:00",
+        "payload": {
+          "from": "accepted",
+          "to": "planning",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "1980a8cb-3bf7-451a-a1ab-2b5b24bbe45b",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.planning.started",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675925+00:00",
+        "payload": {
+          "message": "Case entered planning stage"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "68ee1e69-00da-4ec5-9b10-b4865d7839c3",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.state.internal_review",
+        "producer": "cabinet.reviewer",
+        "timestamp": "2026-04-03T03:42:10.675932+00:00",
+        "payload": {
+          "from": "planning",
+          "to": "internal_review",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "9cc94eac-ffa8-4aad-94c1-5b2cc48a5f86",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.state.submitted_for_approval",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.675943+00:00",
+        "payload": {
+          "from": "internal_review",
+          "to": "submitted_for_approval",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "397dca04-5a38-4653-a307-8536b21edc32",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.state.rejected",
+        "producer": "silijian.rejector",
+        "timestamp": "2026-04-03T03:42:10.675954+00:00",
+        "payload": {
+          "from": "submitted_for_approval",
+          "to": "rejected",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "df401bde-5dff-4d2c-8e6c-06fb4337b63f",
+        "case_id": "1b196c93-a918-4eb9-bd21-3ddcf86c5c9f",
+        "topic": "case.approval.rejected",
+        "producer": "silijian.rejector",
+        "timestamp": "2026-04-03T03:42:10.675966+00:00",
+        "payload": {
+          "reason": "测试覆盖不足"
+        },
+        "meta": {}
+      }
+    ],
+    "e2be1512-1455-4193-99a9-e6d5ba780e62": [
+      {
+        "event_id": "85a9a342-2696-493c-b7ef-52c4bc6f40e5",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.created",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675976+00:00",
+        "payload": {
+          "title": "依赖污染修复",
+          "priority": "critical"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "c9a35aad-c701-48ba-9ddc-2d6b0147a75d",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.accepted",
+        "producer": "gateway",
+        "timestamp": "2026-04-03T03:42:10.675989+00:00",
+        "payload": {
+          "from": "created",
+          "to": "accepted",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "69d364e5-f299-430c-9ce8-c20062431cf4",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.planning",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.676001+00:00",
+        "payload": {
+          "from": "accepted",
+          "to": "planning",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "f2220f2d-6519-4fdf-9055-effabd6f4d39",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.planning.started",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.676011+00:00",
+        "payload": {
+          "message": "Case entered planning stage"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "3fe88705-b20c-459f-a131-123fe46e5a1c",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.internal_review",
+        "producer": "cabinet.reviewer",
+        "timestamp": "2026-04-03T03:42:10.676017+00:00",
+        "payload": {
+          "from": "planning",
+          "to": "internal_review",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "73cd2aac-7e6a-4429-af48-81d1205665a7",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.submitted_for_approval",
+        "producer": "cabinet.coordinator",
+        "timestamp": "2026-04-03T03:42:10.676030+00:00",
+        "payload": {
+          "from": "internal_review",
+          "to": "submitted_for_approval",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "d421ce55-a42a-4a74-9ae5-4beac6f89e5f",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.approved",
+        "producer": "silijian.approver",
+        "timestamp": "2026-04-03T03:42:10.676042+00:00",
+        "payload": {
+          "from": "submitted_for_approval",
+          "to": "approved",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "aec2431e-8f12-4a8a-881e-77ab91ab38da",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.dispatched",
+        "producer": "cabinet.dispatcher",
+        "timestamp": "2026-04-03T03:42:10.676053+00:00",
+        "payload": {
+          "from": "approved",
+          "to": "dispatched",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "f699e17a-aec5-41d3-b80a-817682f9a7a0",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.executing",
+        "producer": "dynamic_pool",
+        "timestamp": "2026-04-03T03:42:10.676064+00:00",
+        "payload": {
+          "from": "dispatched",
+          "to": "executing",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "f321a425-2022-4cb5-adb6-bcb2796e3cdb",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.repair_pending",
+        "producer": "jinyiwei.locator",
+        "timestamp": "2026-04-03T03:42:10.676074+00:00",
+        "payload": {
+          "from": "executing",
+          "to": "repair_pending",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "e0330528-1e52-49fa-8785-a9e83bc84389",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "repair.report.generated",
+        "producer": "jinyiwei.advisor",
+        "timestamp": "2026-04-03T03:42:10.676084+00:00",
+        "payload": {
+          "reason": "dependency corruption"
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "9dfc3e34-ae6f-4a50-bcfe-6ae81b558fe3",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "case.state.repair_authorized",
+        "producer": "imperial_user",
+        "timestamp": "2026-04-03T03:42:10.676091+00:00",
+        "payload": {
+          "from": "repair_pending",
+          "to": "repair_authorized",
+          "rework_count": 0
+        },
+        "meta": {}
+      },
+      {
+        "event_id": "60fe8135-7e1b-44ea-a9db-48b838a2d290",
+        "case_id": "e2be1512-1455-4193-99a9-e6d5ba780e62",
+        "topic": "repair.authorized",
+        "producer": "imperial_user",
+        "timestamp": "2026-04-03T03:42:10.676100+00:00",
+        "payload": {
+          "strategy": "patch_then_rerun",
+          "reason": "critical dependency issue",
+          "scope": "executor_pool/api_builder"
+        },
+        "meta": {}
+      }
+    ]
+  }
+}
