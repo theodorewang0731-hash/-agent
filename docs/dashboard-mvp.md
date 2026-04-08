@@ -132,5 +132,6 @@ Dashboard 不需要在 v0.1 就做出 18 个 Agent 的独立控制面。
 - 已有骨架的 Agent
 - 每个 Agent 的样式类型
 - 每个 Agent 支持的模型来源
+- 选中 Agent 的输入输出契约
 
 这样界面就能和 Agent Catalog API 对齐。

@@ -2,6 +2,7 @@ import { useEffect, useState, startTransition } from "react";
 
 import { getAgents, getCase, getCases, getDashboardSummary, getModelCapabilities, getTimeline } from "./lib/api";
 import type { Agent, Case, CaseEvent, DashboardSummary, ModelRuntimeCapabilities } from "./types";
+import { AgentContract } from "./components/AgentContract";
 import { CaseDetail } from "./components/CaseDetail";
 import { KanbanBoard } from "./components/KanbanBoard";
 import { AgentRoster } from "./components/AgentRoster";
@@ -14,6 +15,7 @@ export default function App() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [modelCapabilities, setModelCapabilities] = useState<ModelRuntimeCapabilities | null>(null);
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
+  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [timeline, setTimeline] = useState<CaseEvent[]>([]);
   const [loadingDetail, setLoadingDetail] = useState(false);
@@ -40,6 +42,11 @@ export default function App() {
         if (nextCases.length) {
           startTransition(() => {
             setSelectedCaseId(nextCases[0].case_id);
+          });
+        }
+        if (nextAgents.length) {
+          startTransition(() => {
+            setSelectedAgentId(nextAgents[0].agent_id);
           });
         }
       } catch (loadError) {
@@ -87,6 +94,8 @@ export default function App() {
       active = false;
     };
   }, [selectedCaseId]);
+
+  const selectedAgent = agents.find((agent) => agent.agent_id === selectedAgentId) ?? null;
 
   return (
     <main className="dashboard-shell">
@@ -148,9 +157,9 @@ export default function App() {
               <div className="panel-label">治理编制</div>
               <h2>18 个固定治理 Agent</h2>
             </div>
-            <div className="panel-caption">先展示编制与边界，再逐步补齐 worker</div>
+            <div className="panel-caption">现已补齐 18 个 Agent 骨架、SOUL 与样式契约</div>
           </div>
-          <AgentRoster agents={agents} />
+          <AgentRoster agents={agents} selectedAgentId={selectedAgentId} onSelectAgent={setSelectedAgentId} />
         </section>
 
         <section className="panel">
@@ -163,6 +172,17 @@ export default function App() {
           </div>
           <ModelPolicy modelCapabilities={modelCapabilities} />
         </section>
+      </section>
+
+      <section className="panel">
+        <div className="panel-head">
+          <div>
+            <div className="panel-label">契约层</div>
+            <h2>Agent Contract</h2>
+          </div>
+          <div className="panel-caption">输入字段、输出字段、示例输入与示例输出</div>
+        </div>
+        <AgentContract agent={selectedAgent} />
       </section>
     </main>
   );

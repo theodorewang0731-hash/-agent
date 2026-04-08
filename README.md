@@ -179,7 +179,8 @@ RegentOS 的设计目标，就是把这四个问题拆开处理。
 - 基础状态机与非法跳转保护
 - 基础权限矩阵草案
 - 最小编排器
-- 4 个关键治理角色的 `SOUL.md`
+- 18 个固定治理 Agent 的 `SOUL.md` 骨架
+- Agent 样式契约与输入输出示例
 - 状态机测试
 - 演示数据脚本
 - `agents.json` manifest
@@ -271,7 +272,7 @@ RegentOS 更像治理型多智能体操作系统。
 | `core/permissions` | 维护角色消息权限矩阵 |
 | `core/orchestrator` | 驱动最小案件流转 |
 | `core/replay` | 导出案件时间线 JSON |
-| `agents/*/SOUL.md` | 定义关键治理角色的职责边界 |
+| `agents/*/SOUL.md` | 定义 18 个治理角色的职责边界 |
 | `scripts/seed_demo_data.py` | 生成原型演示数据 |
 
 ## v0.1 的 MVP 截断线
@@ -450,8 +451,9 @@ executing
 
 ## 固定治理角色
 
-RegentOS 的长期设计目标是 18 个固定治理 Agent，但它们不再作为首页第一卖点。
-当前首页只强调治理分权主线；更完整的角色编制属于扩展设计。
+RegentOS 已经补齐 18 个固定治理 Agent 的骨架、`SOUL.md` 与样式契约，
+但它们仍不作为首页第一卖点。首页只强调治理分权主线；
+更完整的角色编制属于扩展设计。
 完整的结构化清单可见仓库根目录 [agents.json](agents.json)。
 
 <details>

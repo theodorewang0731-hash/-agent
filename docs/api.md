@@ -39,7 +39,9 @@
 |--------|------|------|
 | `GET` | `/api/agents` | 列出 18 个固定治理 Agent |
 | `GET` | `/api/agents/styles` | 查看 Agent 样式类型定义 |
+| `GET` | `/api/agents/contracts` | 查看全部 Agent 样式契约 |
 | `GET` | `/api/agents/{agent_id}` | 查看单个 Agent 的元数据、样式和模型来源支持 |
+| `GET` | `/api/agents/{agent_id}/contract` | 查看单个 Agent 的输入输出契约 |
 
 支持查询参数：
 
@@ -67,22 +69,22 @@
 | Agent ID | 名称 | 部门 | 样式 | 当前状态 |
 |----------|------|------|------|----------|
 | `cabinet.coordinator` | 首辅协调 Agent | 内阁 | `coordinator` | 已有骨架 |
-| `cabinet.drafter` | 票拟草拟 Agent | 内阁 | `drafter` | 规划中 |
-| `cabinet.reviewer` | 校核复审 Agent | 内阁 | `reviewer` | 规划中 |
-| `cabinet.dispatcher` | 执行调度 Agent | 内阁 | `dispatcher` | 规划中 |
-| `cabinet.reporter` | 回奏反馈 Agent | 内阁 | `reporter` | 规划中 |
+| `cabinet.drafter` | 票拟草拟 Agent | 内阁 | `drafter` | 已有骨架 |
+| `cabinet.reviewer` | 校核复审 Agent | 内阁 | `reviewer` | 已有骨架 |
+| `cabinet.dispatcher` | 执行调度 Agent | 内阁 | `dispatcher` | 已有骨架 |
+| `cabinet.reporter` | 回奏反馈 Agent | 内阁 | `reporter` | 已有骨架 |
 | `silijian.approver` | 掌印审批 Agent | 司礼监 | `approver` | 已有骨架 |
-| `silijian.decree_writer` | 秉笔批令 Agent | 司礼监 | `decree_writer` | 规划中 |
-| `silijian.rejector` | 封驳记录 Agent | 司礼监 | `rejector` | 规划中 |
-| `censorship.personnel` | 吏科监察 Agent | 台谏院 | `oversight` | 规划中 |
-| `censorship.finance` | 户科监察 Agent | 台谏院 | `oversight` | 规划中 |
-| `censorship.protocol` | 礼科监察 Agent | 台谏院 | `oversight` | 规划中 |
-| `censorship.military` | 兵科监察 Agent | 台谏院 | `oversight` | 规划中 |
-| `censorship.justice` | 刑科监察 Agent | 台谏院 | `oversight` | 规划中 |
-| `censorship.engineering` | 工科监察 Agent | 台谏院 | `oversight` | 规划中 |
+| `silijian.decree_writer` | 秉笔批令 Agent | 司礼监 | `decree_writer` | 已有骨架 |
+| `silijian.rejector` | 封驳记录 Agent | 司礼监 | `rejector` | 已有骨架 |
+| `censorship.personnel` | 吏科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
+| `censorship.finance` | 户科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
+| `censorship.protocol` | 礼科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
+| `censorship.military` | 兵科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
+| `censorship.justice` | 刑科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
+| `censorship.engineering` | 工科监察 Agent | 台谏院 | `oversight` | 已有骨架 |
 | `censorship.inspector` | 都察总巡 Agent | 台谏院 | `chief_oversight` | 已有骨架 |
-| `jinyiwei.locator` | 问题定位 Agent | 锦衣卫 | `diagnostician` | 规划中 |
-| `jinyiwei.analyzer` | 影响分析 Agent | 锦衣卫 | `impact_analyzer` | 规划中 |
+| `jinyiwei.locator` | 问题定位 Agent | 锦衣卫 | `diagnostician` | 已有骨架 |
+| `jinyiwei.analyzer` | 影响分析 Agent | 锦衣卫 | `impact_analyzer` | 已有骨架 |
 | `jinyiwei.advisor` | 修复建议 Agent | 锦衣卫 | `repair_advisor` | 已有骨架 |
 
 ## 4. Agent 样式定义
@@ -151,6 +153,29 @@ curl http://127.0.0.1:8000/api/agents/cabinet.coordinator
     "output_mode": "structured-json",
     "execution_boundary": "不能直接审批，也不能直接修复。"
   },
+  "style_contract": {
+    "input_fields": [
+      {
+        "name": "case_summary",
+        "type": "string",
+        "required": true,
+        "description": "案件摘要和当前目标。"
+      }
+    ],
+    "output_fields": [
+      {
+        "name": "decision",
+        "type": "string",
+        "description": "submit_for_approval | rework | escalate"
+      }
+    ],
+    "example_input": {
+      "case_summary": "重构案件已完成票拟，需要判断是否上呈审批。"
+    },
+    "example_output": {
+      "decision": "submit_for_approval"
+    }
+  },
   "supported_model_sources": [
     "remote_api",
     "local_distilled",
@@ -160,7 +185,26 @@ curl http://127.0.0.1:8000/api/agents/cabinet.coordinator
 }
 ```
 
-## 7. 示例：查看模型运行时能力
+## 7. 示例：查看样式契约
+
+```bash
+curl http://127.0.0.1:8000/api/agents/cabinet.coordinator/contract
+```
+
+这个接口返回：
+
+- 当前 Agent 的样式 ID
+- 该样式的输入字段
+- 该样式的输出字段
+- 示例输入与示例输出
+
+如果想一次列出全部契约，可使用：
+
+```bash
+curl http://127.0.0.1:8000/api/agents/contracts
+```
+
+## 8. 示例：查看模型运行时能力
 
 ```bash
 curl http://127.0.0.1:8000/api/models/runtime-capabilities
@@ -177,7 +221,7 @@ curl http://127.0.0.1:8000/api/models/runtime-capabilities
 - 系统本身不限制本地模型大小
 - 实际可用上限取决于硬件和推理运行时
 
-## 8. 规划中的 Agent 控制 API
+## 9. 规划中的 Agent 控制 API
 
 下面这些接口目前还没有实现，但建议未来按这套形态落地：
 
@@ -191,7 +235,7 @@ curl http://127.0.0.1:8000/api/models/runtime-capabilities
 
 这些接口应当建立在当前的 Agent 元数据层之上，而不是先做 UI 再回头补控制面。
 
-## 9. Manifest 文件
+## 10. Manifest 文件
 
 仓库根目录的 `agents.json` 是当前 18 个固定治理 Agent 的静态 manifest 快照。
 它适合被前端、外部运行时或集成脚本直接消费。

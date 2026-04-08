@@ -28,6 +28,21 @@ export type AgentStyle = {
   interaction_mode: string;
   output_mode: string;
   execution_boundary: string;
+  contract?: AgentStyleContract;
+};
+
+export type AgentStyleContractField = {
+  name: string;
+  type: string;
+  required?: boolean;
+  description: string;
+};
+
+export type AgentStyleContract = {
+  input_fields: AgentStyleContractField[];
+  output_fields: AgentStyleContractField[];
+  example_input: Record<string, unknown>;
+  example_output: Record<string, unknown>;
 };
 
 export type Agent = {
@@ -42,6 +57,7 @@ export type Agent = {
   supported_model_sources: string[];
   local_model_size_limit: string;
   workspace_slug: string;
+  style_contract: AgentStyleContract | null;
   allowed_targets?: string[];
 };
 

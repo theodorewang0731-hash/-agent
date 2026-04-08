@@ -19,5 +19,5 @@ def test_dashboard_summary_reports_case_and_agent_counts() -> None:
     summary = dashboard_summary()
     assert summary["counts"]["cases_total"] == 1
     assert summary["counts"]["agents_total"] == 18
-    assert summary["counts"]["agents_implemented"] == 4
+    assert summary["counts"]["agents_implemented"] == 18
     assert "planning" in summary["cases_by_state"]

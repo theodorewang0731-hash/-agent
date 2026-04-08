@@ -329,6 +329,22 @@ select {
   padding: 14px;
 }
 
+.roster-card {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.roster-card:hover,
+.roster-card.is-selected {
+  border-color: var(--gold);
+  box-shadow: 0 12px 22px rgba(121, 84, 42, 0.12);
+  transform: translateY(-1px);
+}
+
 .roster-head {
   display: flex;
   justify-content: space-between;
@@ -378,6 +394,68 @@ select {
   color: var(--accent);
 }
 
+.contract-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.contract-overview,
+.contract-card {
+  border: 1px solid var(--line);
+  background: rgba(255, 250, 242, 0.82);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.contract-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.contract-title-row h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.contract-mini-grid,
+.contract-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.contract-mini-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.contract-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contract-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.contract-list li {
+  line-height: 1.7;
+}
+
+.contract-code {
+  margin: 12px 0 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(27, 23, 21, 0.92);
+  color: #f9f2e9;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 @media (max-width: 1280px) {
   .main-layout,
   .secondary-layout {
@@ -392,6 +470,11 @@ select {
 
   .kanban-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contract-grid,
+  .contract-mini-grid {
+    grid-template-columns: 1fr;
   }
 }
 

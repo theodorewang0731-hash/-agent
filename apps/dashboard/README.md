@@ -1,6 +1,7 @@
 # Dashboard Prototype
 
 这里是 RegentOS 的 `文渊阁中枢` React 前端原型。
+当前页面除了案件 Kanban 和卷宗视角，也会展示 18 个治理 Agent 的编制与样式契约。
 
 当前已提供：
 

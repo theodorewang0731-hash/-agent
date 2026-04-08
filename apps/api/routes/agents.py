@@ -25,6 +25,25 @@ def list_agent_styles() -> dict:
     return {"items": governance_agent_registry.list_styles()}
 
 
+@router.get("/agents/contracts")
+def list_agent_contracts() -> dict:
+    return {"items": governance_agent_registry.list_style_contracts()}
+
+
+@router.get("/agents/{agent_id}/contract")
+def get_agent_contract(agent_id: str) -> dict:
+    agent = governance_agent_registry.get_agent(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+    return {
+        "agent_id": agent["agent_id"],
+        "display_name": agent["display_name"],
+        "style_id": agent["style_id"],
+        "style_name": agent["style"]["name"],
+        "contract": agent["style_contract"],
+    }
+
+
 @router.get("/agents/{agent_id}")
 def get_agent(agent_id: str) -> dict:
     agent = governance_agent_registry.get_agent(agent_id)
