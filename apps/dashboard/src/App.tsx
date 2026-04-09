@@ -1,9 +1,10 @@
 import { useEffect, useState, startTransition } from "react";
 
-import { getAgents, getCase, getCases, getDashboardSummary, getModelCapabilities, getTimeline } from "./lib/api";
-import type { Agent, Case, CaseEvent, DashboardSummary, ModelRuntimeCapabilities } from "./types";
+import { getAgents, getCase, getCases, getDashboardSummary, getJinyiweiBoard, getModelCapabilities, getTimeline } from "./lib/api";
+import type { Agent, Case, CaseEvent, DashboardSummary, JinyiweiBoard as JinyiweiBoardPayload, ModelRuntimeCapabilities } from "./types";
 import { AgentContract } from "./components/AgentContract";
 import { CaseDetail } from "./components/CaseDetail";
+import { JinyiweiBoard } from "./components/JinyiweiBoard";
 import { KanbanBoard } from "./components/KanbanBoard";
 import { AgentRoster } from "./components/AgentRoster";
 import { ModelPolicy } from "./components/ModelPolicy";
@@ -14,6 +15,7 @@ export default function App() {
   const [cases, setCases] = useState<Case[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [modelCapabilities, setModelCapabilities] = useState<ModelRuntimeCapabilities | null>(null);
+  const [jinyiweiBoard, setJinyiweiBoard] = useState<JinyiweiBoardPayload | null>(null);
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
@@ -26,11 +28,12 @@ export default function App() {
 
     async function load() {
       try {
-        const [nextSummary, nextCases, nextAgents, nextModels] = await Promise.all([
+        const [nextSummary, nextCases, nextAgents, nextModels, nextJinyiweiBoard] = await Promise.all([
           getDashboardSummary(),
           getCases(),
           getAgents(),
           getModelCapabilities(),
+          getJinyiweiBoard(),
         ]);
         if (!active) {
           return;
@@ -39,6 +42,7 @@ export default function App() {
         setCases(nextCases);
         setAgents(nextAgents);
         setModelCapabilities(nextModels);
+        setJinyiweiBoard(nextJinyiweiBoard);
         if (nextCases.length) {
           startTransition(() => {
             setSelectedCaseId(nextCases[0].case_id);
@@ -104,7 +108,8 @@ export default function App() {
           <p className="eyebrow">Governance-first Prototype</p>
           <h1>文渊阁中枢</h1>
           <p className="hero-copy">
-            这是 RegentOS 的 React 前端原型。它用于展示案件流转、卷宗时间线、18 个治理 Agent 编制和模型接入边界，
+            这是 RegentOS 的 React 前端原型。它用于展示文渊阁案件流转、卷宗时间线、锦衣卫内部问题面板、
+            18 个治理 Agent 编制和模型接入边界，
             但当前仍只是原型骨架，并不能直接投入使用，后续会持续更新。
           </p>
         </div>
@@ -148,6 +153,17 @@ export default function App() {
           </div>
           <CaseDetail caseItem={selectedCase} timeline={timeline} loading={loadingDetail} />
         </section>
+      </section>
+
+      <section className="panel jinyiwei-panel">
+        <div className="panel-head">
+          <div>
+            <div className="panel-label">锦衣卫看板</div>
+            <h2>Internal Issues</h2>
+          </div>
+          <div className="panel-caption">独立展示内部问题、等级划分和修复建议，不与文渊阁案件看板混排</div>
+        </div>
+        <JinyiweiBoard board={jinyiweiBoard} />
       </section>
 
       <section className="secondary-layout">

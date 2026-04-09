@@ -27,6 +27,10 @@ class ReasonRequest(BaseModel):
     reason: str = Field(..., min_length=1)
 
 
+class SummaryRequest(BaseModel):
+    summary: str = Field(..., min_length=1)
+
+
 def _raise_case_error(exc: Exception) -> None:
     if isinstance(exc, KeyError):
         raise HTTPException(status_code=404, detail="Case not found") from exc
@@ -102,6 +106,15 @@ def mark_repair_pending(case_id: str, payload: ReasonRequest) -> dict:
     return _get_case_or_404(case_id)
 
 
+@router.post("/cases/{case_id}/rework")
+def rework_case(case_id: str, payload: ReasonRequest) -> dict:
+    try:
+        orchestrator.request_rework(case_id, reason=payload.reason)
+    except Exception as exc:
+        _raise_case_error(exc)
+    return _get_case_or_404(case_id)
+
+
 @router.get("/cases/{case_id}")
 def get_case(case_id: str) -> dict:
     return _get_case_or_404(case_id)
@@ -158,6 +171,33 @@ def repair_order(case_id: str, payload: RepairOrderRequest) -> dict:
             reason=payload.reason,
             scope=payload.scope,
         )
+    except Exception as exc:
+        _raise_case_error(exc)
+    return _get_case_or_404(case_id)
+
+
+@router.post("/cases/{case_id}/rerun")
+def rerun_case(case_id: str, payload: ReasonRequest) -> dict:
+    try:
+        orchestrator.rerun_case(case_id, reason=payload.reason)
+    except Exception as exc:
+        _raise_case_error(exc)
+    return _get_case_or_404(case_id)
+
+
+@router.post("/cases/{case_id}/report")
+def report_case(case_id: str, payload: SummaryRequest) -> dict:
+    try:
+        orchestrator.mark_reporting(case_id, summary=payload.summary)
+    except Exception as exc:
+        _raise_case_error(exc)
+    return _get_case_or_404(case_id)
+
+
+@router.post("/cases/{case_id}/archive")
+def archive_case(case_id: str, payload: SummaryRequest) -> dict:
+    try:
+        orchestrator.archive_case(case_id, summary=payload.summary)
     except Exception as exc:
         _raise_case_error(exc)
     return _get_case_or_404(case_id)

@@ -58,7 +58,20 @@ curl http://127.0.0.1:8000/api/models/runtime-capabilities
 pytest tests
 python scripts/export_agent_manifest.py
 python scripts/seed_demo_data.py
+python scripts/run_e2e_demo.py
 ```
+
+其中 `python scripts/run_e2e_demo.py` 会直接在进程内通过 API 跑完一条完整治理链：
+
+- 创建案件
+- 受理与票拟
+- 提交审批
+- 批准执行
+- 标记修复待令
+- 下达修复令
+- 重跑回到执行
+- 进入回奏
+- 完成归档
 
 React 前端开发模式：
 

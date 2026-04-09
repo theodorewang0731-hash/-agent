@@ -72,6 +72,33 @@ export type DashboardSummary = {
   recent_cases: Case[];
 };
 
+export type JinyiweiIssue = {
+  issue_id: string;
+  case_id: string;
+  case_title: string;
+  current_state: string;
+  severity: string;
+  status: string;
+  detected_by: string;
+  summary: string;
+  repair_strategy: string;
+  repair_scope: string;
+  recommendation: string;
+  evidence_topics: string[];
+  updated_at: string;
+};
+
+export type JinyiweiBoard = {
+  counts: {
+    issues_total: number;
+    critical: number;
+    high: number;
+  };
+  issues_by_severity: Record<string, number>;
+  issues_by_status: Record<string, number>;
+  items: JinyiweiIssue[];
+};
+
 export type ModelRuntimeCapabilities = {
   sources: {
     source_id: string;

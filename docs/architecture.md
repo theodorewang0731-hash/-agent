@@ -438,6 +438,7 @@ RegentOS 不把任务视为零散日志，而把它视为案件卷宗。
 
 - Kanban
 - Memorials
+- 锦衣卫看板
 - Monitor
 - Officials
 - Models

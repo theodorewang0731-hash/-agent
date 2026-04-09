@@ -35,6 +35,15 @@ class Orchestrator:
             payload={"reason": reason},
         )
 
+    def request_rework(self, case_id: str, reason: str) -> None:
+        case_registry.update_state(case_id, "reworking", producer="cabinet.coordinator")
+        case_registry.append_event(
+            case_id=case_id,
+            topic="case.rework.requested",
+            producer="cabinet.coordinator",
+            payload={"reason": reason},
+        )
+
     def mark_repair_pending(self, case_id: str, reason: str) -> None:
         case_registry.update_state(case_id, "repair_pending", producer="jinyiwei.locator")
         case_registry.append_event(
@@ -57,6 +66,40 @@ class Orchestrator:
             topic="repair.authorized",
             producer="imperial_user",
             payload={"strategy": strategy, "reason": reason, "scope": scope},
+        )
+
+    def rerun_case(self, case_id: str, reason: str | None = None) -> None:
+        case_registry.update_state(case_id, "rerunning", producer="dynamic_pool")
+        case_registry.append_event(
+            case_id=case_id,
+            topic="repair.rerun.started",
+            producer="dynamic_pool",
+            payload={"reason": reason or "authorized rerun"},
+        )
+        case_registry.update_state(case_id, "executing", producer="dynamic_pool")
+        case_registry.append_event(
+            case_id=case_id,
+            topic="repair.rerun.completed",
+            producer="dynamic_pool",
+            payload={"result": "case returned to executing"},
+        )
+
+    def mark_reporting(self, case_id: str, summary: str | None = None) -> None:
+        case_registry.update_state(case_id, "reporting", producer="cabinet.reporter")
+        case_registry.append_event(
+            case_id=case_id,
+            topic="case.reporting.started",
+            producer="cabinet.reporter",
+            payload={"summary": summary or "Execution entered reporting stage"},
+        )
+
+    def archive_case(self, case_id: str, summary: str | None = None) -> None:
+        case_registry.update_state(case_id, "archived", producer="cabinet.reporter")
+        case_registry.append_event(
+            case_id=case_id,
+            topic="case.archived",
+            producer="cabinet.reporter",
+            payload={"summary": summary or "Case archived"},
         )
 
     def pause_case(self, case_id: str) -> None:

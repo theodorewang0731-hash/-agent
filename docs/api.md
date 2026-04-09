@@ -27,11 +27,15 @@
 | `POST` | `/api/cases/{case_id}/approve` | 批准并推进到执行前状态 |
 | `POST` | `/api/cases/{case_id}/reject` | 封驳并附带原因 |
 | `POST` | `/api/cases/{case_id}/repair-pending` | 标记进入修复待令阶段 |
+| `POST` | `/api/cases/{case_id}/rework` | 明确进入返工态 |
 | `POST` | `/api/cases/{case_id}/pause` | 暂停运行态案件 |
 | `POST` | `/api/cases/{case_id}/resume` | 从暂停恢复到先前运行态 |
 | `POST` | `/api/cases/{case_id}/freeze` | 冻结案件 |
 | `POST` | `/api/cases/{case_id}/cancel` | 取消案件 |
 | `POST` | `/api/cases/{case_id}/repair-order` | 用户正式下修复令 |
+| `POST` | `/api/cases/{case_id}/rerun` | 执行已授权修复并返回执行态 |
+| `POST` | `/api/cases/{case_id}/report` | 进入回奏与报告整理阶段 |
+| `POST` | `/api/cases/{case_id}/archive` | 完成归档 |
 
 ### 2.2 Agents
 
@@ -60,6 +64,7 @@
 | Method | Path | 说明 |
 |--------|------|------|
 | `GET` | `/api/dashboard/summary` | 返回看板摘要、案件数量、治理 Agent 数量和最近案件 |
+| `GET` | `/api/dashboard/jinyiwei-board` | 返回锦衣卫问题看板、等级统计和修复建议 |
 
 ## 3. 18 个固定治理 Agent
 

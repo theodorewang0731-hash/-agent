@@ -2,10 +2,11 @@
 
 ## 目标
 
-v0.1 的界面目标不是一次做出完整控制台，而是先把两件最关键的东西可视化：
+v0.1 的界面目标不是一次做出完整控制台，而是先把三件最关键的东西可视化：
 
 - `Kanban`：看见案件当前在哪个状态
 - `Memorials`：看见案件卷宗和时间线
+- `Jinyiwei Board`：看见执行中出现的内部问题、等级和修复建议
 
 这份文档既是 `文渊阁中枢` 的最小设计稿，也是当前 React 原型的说明文档。
 
@@ -32,6 +33,17 @@ v0.1 的界面目标不是一次做出完整控制台，而是先把两件最关
 - 修复令
 - 导出入口
 
+### 3. 锦衣卫看板
+
+展示：
+
+- 内部问题摘要
+- 风险等级
+- 当前处置状态
+- 修复策略
+- 修复范围
+- 证据事件
+
 ## 数据来源
 
 - `/api/cases`
@@ -39,6 +51,7 @@ v0.1 的界面目标不是一次做出完整控制台，而是先把两件最关
 - `/api/cases/{case_id}/timeline`
 - `/api/agents`
 - `/api/models/runtime-capabilities`
+- `/api/dashboard/jinyiwei-board`
 
 ## 页面结构
 
@@ -47,6 +60,7 @@ flowchart TB
     A["文渊阁中枢"] --> B["顶部状态条"]
     A --> C["Kanban 页面"]
     A --> D["Memorials 页面"]
+    A --> E["锦衣卫看板"]
 
     C --> C1["Created / Accepted"]
     C --> C2["Planning / Review"]
@@ -59,6 +73,11 @@ flowchart TB
     D --> D3["审批与封驳记录"]
     D --> D4["修复建议与修复令"]
     D --> D5["导出 JSON / 后续扩展 PDF"]
+
+    E --> E1["内部问题列表"]
+    E --> E2["severity / status"]
+    E --> E3["repair strategy / scope"]
+    E --> E4["evidence topics"]
 ```
 
 ## 模拟展示图
@@ -82,10 +101,18 @@ flowchart LR
         M4["修复令与备注"]
     end
 
+    subgraph Bottom["Jinyiwei Board"]
+        J1["内部问题摘要"]
+        J2["severity / status"]
+        J3["repair strategy"]
+        J4["evidence topics"]
+    end
+
     K3 --> M1
     K3 --> M2
     K4 --> M3
     K5 --> M4
+    K5 --> J1
 ```
 
 ## 前端建议结构

@@ -1,4 +1,4 @@
-import type { Agent, Case, CaseEvent, DashboardSummary, ModelRuntimeCapabilities } from "../types";
+import type { Agent, Case, CaseEvent, DashboardSummary, JinyiweiBoard, ModelRuntimeCapabilities } from "../types";
 
 declare global {
   interface Window {
@@ -21,6 +21,10 @@ async function fetchJson<T>(path: string): Promise<T> {
 
 export async function getDashboardSummary(): Promise<DashboardSummary> {
   return fetchJson<DashboardSummary>("/api/dashboard/summary");
+}
+
+export async function getJinyiweiBoard(): Promise<JinyiweiBoard> {
+  return fetchJson<JinyiweiBoard>("/api/dashboard/jinyiwei-board");
 }
 
 export async function getCases(): Promise<Case[]> {

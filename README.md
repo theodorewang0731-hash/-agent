@@ -19,6 +19,7 @@ RegentOS 不是一个“让多个 Agent 讨论后交结果”的协作框架。
 接口设计见 [docs/api.md](docs/api.md)。
 界面设计见 [docs/dashboard-mvp.md](docs/dashboard-mvp.md)。
 快速上手见 [docs/getting-started.md](docs/getting-started.md)。
+流程与画图 Prompt 见 [docs/project-flow-prompt.md](docs/project-flow-prompt.md)。
 案例示例见 [examples/README.md](examples/README.md)。
 
 ## 我们要解决的问题
@@ -185,6 +186,7 @@ RegentOS 的设计目标，就是把这四个问题拆开处理。
 - 演示数据脚本
 - `agents.json` manifest
 - React Dashboard 原型
+- 独立锦衣卫看板原型
 - 安装脚本与配置样例
 - 持久化 demo 数据快照
 
@@ -285,7 +287,11 @@ RegentOS 更像治理型多智能体操作系统。
 4. 锦衣卫修复建议与修复受令骨架
 5. 最小卷宗时间线与导出
 
-更完整的 `文渊阁中枢` 看板仍属于下一阶段；当前仓库已经提供基于 React 的前端原型。
+更完整的 `文渊阁中枢` 控制台仍属于下一阶段；
+当前仓库已经提供基于 React 的前端原型，其中包含：
+
+- 文渊阁主看板：`Kanban + Memorials`
+- 锦衣卫看板：内部问题、等级划分和修复建议
 
 ## 快速开始
 
