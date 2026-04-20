@@ -21,10 +21,20 @@ class RepairOrderRequest(BaseModel):
     strategy: str = Field(..., min_length=1)
     reason: str = Field(..., min_length=1)
     scope: Optional[str] = None
+    risk_level: Optional[str] = None
+    affected_stage: Optional[str] = None
+    affected_step: Optional[str] = None
 
 
 class ReasonRequest(BaseModel):
     reason: str = Field(..., min_length=1)
+
+
+class RepairReportRequest(ReasonRequest):
+    risk_level: Optional[str] = None
+    affected_stage: Optional[str] = None
+    affected_step: Optional[str] = None
+    auto_handle_allowed: Optional[bool] = None
 
 
 class SummaryRequest(BaseModel):
@@ -98,9 +108,16 @@ def reject_case(case_id: str, payload: ReasonRequest) -> dict:
 
 
 @router.post("/cases/{case_id}/repair-pending")
-def mark_repair_pending(case_id: str, payload: ReasonRequest) -> dict:
+def mark_repair_pending(case_id: str, payload: RepairReportRequest) -> dict:
     try:
-        orchestrator.mark_repair_pending(case_id, reason=payload.reason)
+        orchestrator.mark_repair_pending(
+            case_id,
+            reason=payload.reason,
+            risk_level=payload.risk_level,
+            affected_stage=payload.affected_stage,
+            affected_step=payload.affected_step,
+            auto_handle_allowed=payload.auto_handle_allowed,
+        )
     except Exception as exc:
         _raise_case_error(exc)
     return _get_case_or_404(case_id)
@@ -170,6 +187,26 @@ def repair_order(case_id: str, payload: RepairOrderRequest) -> dict:
             strategy=payload.strategy,
             reason=payload.reason,
             scope=payload.scope,
+            risk_level=payload.risk_level,
+            affected_stage=payload.affected_stage,
+            affected_step=payload.affected_step,
+        )
+    except Exception as exc:
+        _raise_case_error(exc)
+    return _get_case_or_404(case_id)
+
+
+@router.post("/cases/{case_id}/auto-repair")
+def auto_repair(case_id: str, payload: RepairOrderRequest) -> dict:
+    try:
+        orchestrator.auto_handle_repair(
+            case_id=case_id,
+            strategy=payload.strategy,
+            reason=payload.reason,
+            scope=payload.scope,
+            risk_level=payload.risk_level or "low",
+            affected_stage=payload.affected_stage,
+            affected_step=payload.affected_step,
         )
     except Exception as exc:
         _raise_case_error(exc)

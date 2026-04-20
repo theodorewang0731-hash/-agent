@@ -78,12 +78,20 @@ export type JinyiweiIssue = {
   case_title: string;
   current_state: string;
   severity: string;
+  risk_level: string;
   status: string;
   detected_by: string;
   summary: string;
   repair_strategy: string;
   repair_scope: string;
   recommendation: string;
+  affected_stage: string;
+  affected_step: string;
+  requires_user_order: boolean;
+  decision_authority: string;
+  handling_mode: string;
+  process_trace: string[];
+  audited_stages: string[];
   evidence_topics: string[];
   updated_at: string;
 };
@@ -93,9 +101,12 @@ export type JinyiweiBoard = {
     issues_total: number;
     critical: number;
     high: number;
+    auto_handled: number;
+    pending_user_decision: number;
   };
   issues_by_severity: Record<string, number>;
   issues_by_status: Record<string, number>;
+  issues_by_handling_mode: Record<string, number>;
   items: JinyiweiIssue[];
 };
 

@@ -28,6 +28,14 @@ export function JinyiweiBoard({ board }: JinyiweiBoardProps) {
           <div className="panel-label">High</div>
           <strong>{board.counts.high}</strong>
         </div>
+        <div className="jinyiwei-stat">
+          <div className="panel-label">自行处置</div>
+          <strong>{board.counts.auto_handled}</strong>
+        </div>
+        <div className="jinyiwei-stat">
+          <div className="panel-label">待用户决策</div>
+          <strong>{board.counts.pending_user_decision}</strong>
+        </div>
       </div>
 
       <div className="jinyiwei-grid">
@@ -47,6 +55,31 @@ export function JinyiweiBoard({ board }: JinyiweiBoardProps) {
             </div>
 
             <p className="roster-summary">{item.summary}</p>
+
+            <div className="issue-recommendation">
+              <div className="panel-label">流程审计</div>
+              <div className="detail-meta">
+                {item.audited_stages.join(" -> ")}
+              </div>
+              <div className="detail-meta">
+                {item.process_trace.join(" -> ")}
+              </div>
+            </div>
+
+            <div className="issue-meta-grid">
+              <div>
+                <div className="panel-label">问题环节</div>
+                <div className="detail-meta">
+                  {item.affected_stage} · {item.affected_step}
+                </div>
+              </div>
+              <div>
+                <div className="panel-label">处置权限</div>
+                <div className="detail-meta">
+                  {item.decision_authority === "jinyiwei.advisor" ? "锦衣卫自行处理" : item.requires_user_order ? "用户决定" : "持续观察"}
+                </div>
+              </div>
+            </div>
 
             <div className="issue-meta-grid">
               <div>

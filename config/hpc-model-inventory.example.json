@@ -1,0 +1,43 @@
+{
+  "source": "repo configs/scripts, not ollama",
+  "ollama_available": false,
+  "hpc_target": {
+    "status": "missing_host",
+    "candidate": "rpwang@<HPC_HOST>:/home/rpwang/",
+    "model_root": "/home/share/models",
+    "active_mirror_path": "/home/rpwang/distillm-2-map-projection-v1",
+    "original_repo_path": "/home/rpwang/distillm-2",
+    "mainline_env": "/home/rpwang/miniconda3/envs/distillm2_mainline"
+  },
+  "active_model_lines": [
+    {
+      "name": "Qwen3.5 9B -> 4B",
+      "teacher": "/home/share/models/Qwen3.5-9B",
+      "student": "/home/share/models/Qwen3.5-4B",
+      "status": "active mainline"
+    },
+    {
+      "name": "Ministral-3 14B -> 3B",
+      "teacher": "/home/share/models/Ministral-3-14B-Reasoning-2512",
+      "student": "/home/share/models/Ministral-3-3B-Reasoning-2512",
+      "status": "secondary validation line"
+    }
+  ],
+  "archival_or_legacy_models": [
+    "/home/share/models/Qwen2.5-1.5B-Instruct",
+    "/home/share/models/Qwen2.5-3B-Instruct",
+    "/home/share/models/Qwen2.5-7B-Instruct",
+    "/home/share/models/Qwen2.5-32B",
+    "/home/share/models/Qwen2.5-32B-Instruct",
+    "/home/share/models/Meta-Llama-3.1-8B-Instruct",
+    "/home/share/models/Meta-Llama-3.1-70B-Instruct",
+    "ckpts/Qwen2.5-7B-Instruct",
+    "Qwen/Qwen2-1.5B",
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct",
+    "deepseek-ai/deepseek-coder-1.3b-base",
+    "deepseek-ai/deepseek-coder-6.7b-instruct",
+    "bczhou/tiny-llava-v1-hf",
+    "llava-hf/llava-1.5-7b-hf"
+  ]
+}
